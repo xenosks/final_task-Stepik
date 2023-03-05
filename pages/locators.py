@@ -16,3 +16,4 @@ class ProductPageLocators():
     book_name = (By.CSS_SELECTOR, "div.product_main h1")
     message_for_price = (By.CSS_SELECTOR, ".alert-info .alertinner strong")
     price = (By.CSS_SELECTOR, ".product_main .price_color")
+    message_of_success = (By.CSS_SELECTOR, "div.alertinner")

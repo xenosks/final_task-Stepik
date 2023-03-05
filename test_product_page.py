@@ -12,5 +12,33 @@ def test_guest_can_add_product_to_basket(browser, num):
     page.is_correct_product()
     page.is_price_correct()
 
-#pytest -s test_product_page.py
+
+@pytest.mark.negative_check
+@pytest.mark.xfail
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, url)
+    page.open()
+    page.add_to_basket()
+    page.should_not_be_success_message()
+
+
+@pytest.mark.negative_check
+def test_guest_cant_see_success_message(browser):
+    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, url)
+    page.open()
+    page.should_not_be_success_message()
+
+
+@pytest.mark.negative_check
+@pytest.mark.xfail
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, url)
+    page.open()
+    page.add_to_basket()
+    page.should_be_disappeared()
+
+#pytest -s -m negative_check test_product_page.py
 
