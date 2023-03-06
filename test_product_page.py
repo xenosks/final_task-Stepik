@@ -1,7 +1,7 @@
 from .pages.product_page import ProductPage
-from .pages.login_page import BasePage
+from .pages.base_page import BasePage
+from .pages.basket_page import BasketPage
 import pytest
-
 
 
 @pytest.mark.parametrize('num', [*range(1,7), pytest.param(7, marks=pytest.mark.xfail), *range(8,10)])
@@ -57,5 +57,16 @@ def test_guest_can_go_to_login_page_from_product_page (browser):
     page.open()
     page.should_be_login_link()
 
-#pytest -s -m new_tests test_product_page.py
+
+@pytest.mark.Update_test
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasePage(browser, link)
+    page.open()
+    page.open_basket()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.there_are_no_items_in_basket()
+    basket_page.text_about_empty_basket()
+
+#pytest -s -m Update_test test_product_page.py
 
