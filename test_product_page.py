@@ -6,6 +6,7 @@ import pytest
 import time
 
 
+@pytest.mark.need_review
 @pytest.mark.parametrize('num', [*range(1,7), pytest.param(7, marks=pytest.mark.xfail), *range(8,10)])
 def test_guest_can_add_product_to_basket(browser, num):
     link = f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{num}'
@@ -15,16 +16,6 @@ def test_guest_can_add_product_to_basket(browser, num):
     page.solve_quiz_and_get_code()
     page.is_correct_product()
     page.is_price_correct()
-
-
-@pytest.mark.negative_check
-@pytest.mark.xfail
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
-    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = ProductPage(browser, url)
-    page.open()
-    page.add_to_basket()
-    page.should_not_be_success_message()
 
 
 @pytest.mark.need_review
@@ -56,24 +47,7 @@ class TestUserAddToBasketFromProductPage():
         page.is_price_correct()
 
 
-@pytest.mark.negative_check
-@pytest.mark.xfail
-def test_message_disappeared_after_adding_product_to_basket(browser):
-    url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = ProductPage(browser, url)
-    page.open()
-    page.add_to_basket()
-    page.should_be_disappeared()
-
-
-@pytest.mark.new_tests
-def test_guest_should_see_login_link_on_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-    page = BasePage(browser, link)
-    page.open()
-    page.go_to_login_page()
-
-@pytest.mark.new_tests
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page (browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = BasePage(browser, link)
@@ -81,7 +55,7 @@ def test_guest_can_go_to_login_page_from_product_page (browser):
     page.should_be_login_link()
 
 
-@pytest.mark.Update_test
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = BasePage(browser, link)
@@ -91,5 +65,5 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page.there_are_no_items_in_basket()
     basket_page.text_about_empty_basket()
 
-#pytest -s -m Update_test test_product_page.py
+
 
