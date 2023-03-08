@@ -1,11 +1,10 @@
 from .base_page import BasePage
 from .locators import ProductPageLocators
 
-class ProductPage(BasePage):
 
+class ProductPage(BasePage):
     def add_to_basket(self):
-        basket = self.browser.find_element(*ProductPageLocators.basket)
-        basket.click()
+        self.browser.find_element(*ProductPageLocators.basket).click()
 
     def is_correct_product(self):
         product_message = self.browser.find_element(*ProductPageLocators.message_for_product)
